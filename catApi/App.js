@@ -1,23 +1,8 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import MainNavigator from './src/router/MainNavigator';
 
 const App = () => {
-  return (
-    <SafeAreaView>
-      <Text>Hello world</Text>
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  
-});
+  return <MainNavigator />;
+};
 
 export default App;
