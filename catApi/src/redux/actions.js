@@ -1,4 +1,9 @@
-import {GET_ALL_BREEDS, SET_LOADING_TRUE, SET_LOADING_FALSE, SET_CURRENT_BREED} from './types';
+import {
+  GET_ALL_BREEDS,
+  SET_LOADING_TRUE,
+  SET_LOADING_FALSE,
+  SET_CURRENT_BREED,
+} from './types';
 
 export const getAllBreedsAction = (breeds) => {
   return function (dispatch) {

@@ -1,5 +1,4 @@
 /* eslint-disable no-alert */
-import axios from 'axios';
 import React, {useState} from 'react';
 import {
   View,
@@ -17,7 +16,6 @@ import {
   SET_CURRENT_BREED,
 } from '../redux/types';
 import Button from '../components/Button';
-
 import {post} from '../api/index';
 import {dimensions, scale} from '../constants/globalStyles';
 

@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-import {get} from '../api/index';
+import {getAllBreedsApi} from '../api/index';
 import Breed from '../components/Breed';
 import {
   GET_ALL_BREEDS,
@@ -29,7 +29,7 @@ const BreedsScreen = ({
   const getAllBreeds = async () => {
     try {
       setLoadingTrueAction();
-      const response = await get();
+      const response = await getAllBreedsApi();
       setBreeds(response.data);
       getAllBreedsAction(response.data);
       setLoadingFalseAction();

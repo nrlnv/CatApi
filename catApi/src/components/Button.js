@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fefefe',
     padding: scale(10),
-    borderRadius: 10,
+    borderRadius: scale(10),
     shadowColor: 'black',
     shadowOffset: {
       width: 0,

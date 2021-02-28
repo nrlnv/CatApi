@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
+import {getFavouritesApi} from '../api/index';
 import {SET_LOADING_TRUE, SET_LOADING_FALSE} from '../redux/types';
 import {scale, dimensions} from '../constants/globalStyles';
 
@@ -39,14 +40,8 @@ const FavouritesScreen = ({
   }, []);
 
   const getFavourites = async () => {
-    const headers = {
-      'x-api-key': 'a35c3e4e-88d0-4b04-80e1-5b98372ac7be',
-    };
     try {
-      const response = await axios.get(
-        'https://api.thecatapi.com/v1/favourites',
-        {headers},
-      );
+      const response = await getFavouritesApi();
       setImages(response.data);
     } catch (error) {
       console.log(error);
