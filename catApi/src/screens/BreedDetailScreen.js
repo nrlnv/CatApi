@@ -1,24 +1,72 @@
-import React from 'react';
-import {View, Text, SafeAreaView, StyleSheet, Image} from 'react-native';
+/* eslint-disable no-alert */
+import axios from 'axios';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
+import {connect} from 'react-redux';
 
+import {
+  SET_LOADING_TRUE,
+  SET_LOADING_FALSE,
+  SET_CURRENT_BREED,
+} from '../redux/types';
 import Button from '../components/Button';
 
+import {post} from '../api/index';
 import {dimensions, scale} from '../constants/globalStyles';
 
-const BreedDetailScreen = ({route}) => {
-  const {item} = route.params;
+const BreedDetailScreen = ({
+  currentBreed,
+  breeds,
+  setCurrentBreedAction,
+  setLoadingTrueAction,
+  setLoadingFalseAction,
+  isLoading,
+}) => {
+  const [loading, setLoading] = useState(false);
+
+  const addToFavourites = async () => {
+    const image = {image_id: currentBreed.image.id, sub_id: 'your-user-1234'};
+    try {
+      await post(image);
+      alert('successfully added to favourites');
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  const showAnotherCat = () => {
+    const keys = Object.keys(breeds);
+    const randomIndex = keys[Math.floor(Math.random() * keys.length)];
+    const item = breeds[randomIndex];
+    setCurrentBreedAction(item);
+    console.log(item);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageView}>
-        <Image source={{uri: item.image.url}} style={styles.image} />
+        {loading ? <ActivityIndicator size="large" color="red" /> : null}
+        <Image
+          source={{uri: currentBreed.image.url}}
+          style={styles.image}
+          onLoadStart={() => setLoading(true)}
+          onLoadEnd={() => setLoading(false)}
+        />
       </View>
       <View style={styles.textView}>
-        <Text style={styles.textName}>{item.name}</Text>
-        <Text style={styles.textDescription}>{item.description}</Text>
+        <Text style={styles.textName}>{currentBreed.name}</Text>
+        <Text style={styles.textDescription}>{currentBreed.description}</Text>
       </View>
       <View style={styles.buttonView}>
-        <Button title="Another photo" />
-        <Button title="Add to favourites" />
+        <Button title="Another cat" onPress={() => showAnotherCat()} />
+        <Button title="Add to favourites" onPress={() => addToFavourites()} />
       </View>
     </SafeAreaView>
   );
@@ -61,8 +109,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginHorizontal: scale(20),
-    marginTop: scale(20)
+    marginTop: scale(20),
   },
 });
 
-export default BreedDetailScreen;
+const mapStateToProps = (state) => {
+  return {
+    currentBreed: state.breeds.currentBreed,
+    breeds: state.breeds.breeds,
+    isLoading: state.app.isLoading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setCurrentBreedAction: (breed) =>
+      dispatch({type: SET_CURRENT_BREED, payload: breed}),
+    setLoadingTrueAction: () => dispatch({type: SET_LOADING_TRUE}),
+    setLoadingFalseAction: () => dispatch({type: SET_LOADING_FALSE}),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BreedDetailScreen);

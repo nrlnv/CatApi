@@ -1,2 +1,4 @@
-export const INC = 'APP/INC';
-export const DEC = 'APP/DEC';
+export const SET_LOADING_TRUE = 'APP/SET_LOADING_TRUE';
+export const SET_LOADING_FALSE = 'APP/SET_LOADING_FALSE';
+export const GET_ALL_BREEDS = 'BREEDS/GET_ALL_BREEDS';
+export const SET_CURRENT_BREED = 'BREEDS/SET_CURRENT_BREED';

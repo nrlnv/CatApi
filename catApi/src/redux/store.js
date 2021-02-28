@@ -8,6 +8,8 @@ import {rootReducer} from './rootReducer';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  whitelist: ['breeds'],
+  blacklist: ['app'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,19 +1,20 @@
-import {INC, DEC} from './types';
+import {SET_LOADING_TRUE, SET_LOADING_FALSE} from './types';
 
 const initialState = {
-  counter: 0,
+  isLoading: false,
 };
 
 export default function appReducer(state = initialState, action) {
   switch (action.type) {
-    case INC:
+    case SET_LOADING_TRUE:
       return {
-        counter: state.counter + 1,
+        ...state,
+        isLoading: true,
       };
-
-    case DEC:
+    case SET_LOADING_FALSE:
       return {
-        counter: state.counter - 1,
+        ...state,
+        isLoading: false,
       };
     default:
       return state;
