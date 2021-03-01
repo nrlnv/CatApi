@@ -16,7 +16,7 @@ import {
   SET_CURRENT_BREED,
 } from '../redux/types';
 import Button from '../components/Button';
-import {post} from '../api/index';
+import {postApi} from '../api/index';
 import {dimensions, scale} from '../constants/globalStyles';
 
 const BreedDetailScreen = ({
@@ -32,7 +32,7 @@ const BreedDetailScreen = ({
   const addToFavourites = async () => {
     const image = {image_id: currentBreed.image.id, sub_id: 'your-user-1234'};
     try {
-      await post(image);
+      await postApi(image);
       alert('successfully added to favourites');
     } catch (error) {
       alert(error);
